@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.backend.vse.mapper.StudentMapper">
+
+    <!-- 批量插入学生 -->
+    <insert id="batchInsert">
+        INSERT INTO Student (student_index, school, course_score, user_index)
+        VALUES
+        <foreach collection="students" item="student" separator=",">
+            (#{student.studentIndex}, #{student.school}, #{student.courseScore}, #{student.userIndex})
+        </foreach>
+    </insert>
+
+    <!-- 动态更新学生信息 -->
+    <update id="updateStudent" parameterType="com.backend.vse.entity.Student">
+        UPDATE Student
+        <set>
+            <if test="school != null">school = #{school},</if>
+            <if test="courseScore != null">course_score = #{courseScore}</if>
+        </set>
+        WHERE student_index = #{studentIndex}
+    </update>
+
+</mapper>

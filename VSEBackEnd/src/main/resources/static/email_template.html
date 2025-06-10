@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>验证码邮件</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; background-color: #f4f4f4; margin: 0; padding: 0;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+        <tr>
+            <td style="padding: 40px 30px; text-align: center; background-color: #3498db; border-radius: 8px 8px 0 0;">
+                <h1 style="color: #ffffff; margin: 0;">验证码邮件</h1>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 40px 30px;">
+                <p style="font-size: 16px; margin-bottom: 20px;">亲爱的用户，</p>
+                <p style="font-size: 16px; margin-bottom: 20px;">感谢您使用同济大学软件学院软件管理与经济学虚拟仿真实验平台。您的验证码是：</p>
+                <p style="font-size: 24px; font-weight: bold; color: #3498db; text-align: center; padding: 10px; background-color: #f8f8f8; border-radius: 4px;" th:text="${verification_code}"></p>
+                <p style="font-size: 16px; margin-top: 20px;">此验证码将在10分钟后失效。请勿将验证码泄露给他人。</p>
+                <p style="font-size: 16px; margin-top: 20px;">如果这不是您本人的操作，请忽略此邮件。</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 20px 30px; text-align: center; background-color: #f8f8f8; border-radius: 0 0 8px 8px;">
+                <p style="font-size: 14px; color: #888888; margin: 0;">&copy; 2024 同济大学软件学院. 保留所有权利.</p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

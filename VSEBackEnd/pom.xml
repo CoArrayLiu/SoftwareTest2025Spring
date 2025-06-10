@@ -1,0 +1,324 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.17</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.example</groupId>
+    <artifactId>back-end</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>back-end</name>
+    <url>http://localhost:8002</url>
+
+    <properties>
+        <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- 统一版本管理 -->
+        <springdoc.version>1.6.15</springdoc.version>
+        <mybatis-plus.version>3.5.4</mybatis-plus.version>
+        <mysql-connector.version>8.2.0</mysql-connector.version>
+        <druid.version>1.1.20</druid.version>
+        <lombok.version>1.18.30</lombok.version>
+        <guava.version>32.0.0-jre</guava.version>
+        <jwt.version>3.8.2</jwt.version>
+        <fastjson2.version>2.0.42</fastjson2.version>
+        <easyexcel.version>3.3.2</easyexcel.version>
+        <mybatisplus-plus.version>1.2.0-RELEASE</mybatisplus-plus.version>
+        <aliyun-oss.version>3.16.2</aliyun-oss.version>
+        <xdocreport.version>2.0.2</xdocreport.version>
+        <cos.version>5.6.245</cos.version>
+        <poi.version>4.1.2</poi.version>
+    </properties>
+
+    <dependencies>
+        <!-- Spring Boot Starters -->
+        <!-- Spring Boot 核心依赖，用于简化 Spring Boot 项目的开发 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Spring Boot 测试依赖，用于单元测试和集成测试 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- WebSocket 支持，用于实现 WebSocket 服务器 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
+        <!-- Spring Boot 邮件支持，用于发送邮件 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+        <!-- Redis 数据库支持（Spring Boot 集成），去除 Jedis 默认依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>redis.clients</groupId>
+                    <artifactId>jedis</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Thymeleaf 模板引擎，支持 HTML 渲染 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <!-- Database -->
+        <!-- MyBatis-Plus 依赖，用于简化 MyBatis 的使用 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus.version}</version>
+        </dependency>
+
+        <!-- MySQL 驱动，用于连接 MySQL 数据库 -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>${mysql-connector.version}</version>
+        </dependency>
+
+        <!-- 阿里巴巴 Druid 连接池，提供高效的数据源管理 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+
+        <!-- API Documentation -->
+        <!-- OpenAPI 3.0 支持，提供 API 文档功能 -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${springdoc.version}</version>
+        </dependency>
+
+        <!-- Swagger 注解库，用于 API 文档生成 -->
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.2.8</version>
+        </dependency>
+
+        <!-- Utilities -->
+        <!-- Lombok，减少 Java 代码的冗余，提供自动生成 Getter/Setter 等功能 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Google Guava 工具库，提供丰富的 Java 实用工具类 -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+        <!-- ModelMapper，Java 对象之间的映射工具 -->
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>2.3.5</version>
+        </dependency>
+
+        <!-- Security -->
+        <!-- Java JWT，支持基于 JWT 的身份认证 -->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${jwt.version}</version>
+        </dependency>
+
+        <!-- Alibaba -->
+        <!-- FastJSON2，阿里巴巴提供的高性能 JSON 解析库 -->
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>${fastjson2.version}</version>
+        </dependency>
+
+        <!-- EasyExcel，阿里巴巴提供的 Excel 读写库 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>${easyexcel.version}</version>
+        </dependency>
+
+        <!-- 腾讯云 COS 客户端 SDK，用于操作腾讯云对象存储 -->
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+            <version>${cos.version}</version>
+        </dependency>
+
+        <!-- Redis -->
+        <!-- Redis 客户端 Jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+
+        <!-- Apache Commons Pool2，提供连接池管理 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
+        <!-- Spring Test，提供 Spring 相关的单元测试支持 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+
+        <!-- Office -->
+        <!-- Apache POI 依赖，提供 Excel 处理能力 -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+
+        <!-- Apache POI 依赖，提供 Word (DOCX) 处理能力 -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+
+        <!-- XDocReport 依赖，用于 Word (DOCX) 转 PDF -->
+        <dependency>
+            <groupId>fr.opensagres.xdocreport</groupId>
+            <artifactId>fr.opensagres.poi.xwpf.converter.pdf</artifactId>
+            <version>${xdocreport.version}</version>
+        </dependency>
+
+        <!-- Validation -->
+        <!-- Hibernate Validator，支持数据校验 -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+
+        <!-- Extensions -->
+        <!-- MyBatisPlus 额外功能扩展 -->
+        <dependency>
+            <groupId>com.github.jeffreyning</groupId>
+            <artifactId>mybatisplus-plus</artifactId>
+            <version>${mybatisplus-plus.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <parameters>true</parameters>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>8.3.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!--PMD测试工具-->
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.23.0</version>
+                <configuration>
+<!--                    &lt;!&ndash; 基础配置 &ndash;&gt;-->
+<!--                    <skip>false</skip> &lt;!&ndash; 是否跳过PMD检查，默认false &ndash;&gt;-->
+<!--                    <printFailingErrors>true</printFailingErrors> &lt;!&ndash; 输出详细错误到控制台 &ndash;&gt;-->
+                    <!-- 规则集配置 -->
+                    <rulesets>category/java/bestpractices.xml</rulesets>
+                    <!-- 缓存与性能 -->
+                    <analysisCache>true</analysisCache> <!-- 启用增量分析缓存 -->
+<!--                    <analysisCacheLocation>${project.build.directory}/pmd.cache</analysisCacheLocation> &lt;!&ndash; 缓存路径 &ndash;&gt;-->
+                    <!-- 违规阈值控制 -->
+                    <maxAllowedViolations>50</maxAllowedViolations> <!-- 允许的最大违规数 -->
+                    <failurePriority>1</failurePriority> <!-- 只有优先级≤3的违规才会导致构建失败 -->
+<!--                    &lt;!&ndash; 排除文件/目录 &ndash;&gt;-->
+<!--                    <excludes>-->
+<!--                        <exclude>**/generated/**/*.java</exclude> &lt;!&ndash; 排除生成代码 &ndash;&gt;-->
+<!--                        <exclude>**/test/**/*.java</exclude> &lt;!&ndash; 排除测试代码 &ndash;&gt;-->
+<!--                    </excludes>-->
+<!--                    &lt;!&ndash; 报告配置 &ndash;&gt;-->
+                    <format>xml</format> <!-- 报告格式：xml/html/text -->
+<!--                    <outputDirectory>${project.build.directory}/pmd-reports</outputDirectory> &lt;!&ndash; 报告输出目录 &ndash;&gt;-->
+<!--                    <failOnViolation>true</failOnViolation> &lt;!&ndash; 发现违规是否导致构建失败 &ndash;&gt;-->
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <repositories>
+        <repository>
+            <id>aliyun</id>
+            <name>aliyun</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>aliyun-plugin</id>
+            <name>aliyun-plugin</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+</project>

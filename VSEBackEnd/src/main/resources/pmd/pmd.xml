@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>  <!-- 1. 明确指定编码为UTF-8 -->
+<ruleset name="Custom Rules"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+    <description>My custom rules</description>
+    <!-- 1. 排除测试代码目录 -->
+    <exclude-pattern>.*/test/.*</exclude-pattern>  <!-- 忽略测试文件 -->
+    <!-- 2. 引用内置规则集并排除不必要规则 -->
+    <rule ref="category/java/bestpractices.xml">
+        <exclude name="AvoidPrintStackTrace"/>  <!-- 已排除的规则 -->
+    </rule>
+    <rule ref="category/java/codestyle.xml"/>
+    <!-- 3. 优化自定义规则 -->
+</ruleset>

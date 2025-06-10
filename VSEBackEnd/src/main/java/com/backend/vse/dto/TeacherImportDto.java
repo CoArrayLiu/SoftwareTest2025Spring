@@ -1,0 +1,22 @@
+package com.backend.vse.dto;
+
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotNull;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class TeacherImportDto {
+    @JsonSerialize(using= ToStringSerializer.class)
+    @NotNull @Length String id;           //工号
+    @NotNull @Length String name;         //姓名
+    @NotNull @Length String department;   //学院
+    @NotNull @Length String email;        //邮箱
+}

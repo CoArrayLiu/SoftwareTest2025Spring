@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.backend.vse.mapper.UserMapper">
+    <!-- 批量插入用户 -->
+    <insert id="batchInsert">
+        INSERT INTO User (id, name, password, email, role, status)
+        VALUES
+        <foreach collection="users" item="user" separator=",">
+            (#{user.id}, #{user.name}, #{user.password}, #{user.email}, #{user.role}, #{user.status})
+        </foreach>
+    </insert>
+
+    <!-- 批量更新用户角色 -->
+    <update id="batchUpdateRole">
+        UPDATE User SET role = #{newRole}
+        WHERE user_index IN
+        <foreach collection="userIndices" item="index" open="(" separator="," close=")">
+            #{index}
+        </foreach>
+        AND (role != #{newRole} OR role IS NULL)
+    </update>
+
+    <!-- 批量更新用户状态 -->
+    <update id="batchUpdateStatus">
+        UPDATE User SET status = #{status}
+        WHERE user_index IN
+        <foreach collection="userIndices" item="index" open="(" separator="," close=")">
+            #{index}
+        </foreach>
+        AND (status != #{status} OR status IS NULL)
+    </update>
+
+    <!-- 动态更新用户信息 -->
+    <update id="updateUser">
+        UPDATE User
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="status != null">status = #{status}</if>
+        </set>
+        WHERE user_index = #{userIndex}
+    </update>
+
+</mapper>
