@@ -32,6 +32,14 @@ public class AccountManagementServiceImpl implements AccountManagementService {
     private final CourseMapper courseMapper;
 
     // 更新用户名
+    /**
+     * 更新指定用户的用户名。
+     *
+     * @param userIndex 用户的唯一标识
+     * @param newUsername 新的用户名
+     * @return 如果用户名更新成功则返回 true，否则抛出异常
+     * @throws DatabaseOperationException 如果数据库操作失败
+     */
     @Override
     public boolean updateUsername(Long userIndex, String newUsername) {
         if (userMapper.updateUsername(userIndex, newUsername) <= 0) {

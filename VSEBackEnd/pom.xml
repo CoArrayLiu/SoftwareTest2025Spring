@@ -38,6 +38,18 @@
     </properties>
 
     <dependencies>
+        <!-- JUnit 5 测试依赖 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!-- Spring Boot Starters -->
         <!-- Spring Boot 核心依赖，用于简化 Spring Boot 项目的开发 -->
         <dependency>
