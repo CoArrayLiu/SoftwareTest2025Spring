@@ -111,4 +111,4 @@ springdoc:
   override-with-generic-response: false
 
 jwt:
-  dev-mode: true # true=开发模式直接放行，false=生产模式校验token
+  dev-mode: false # true=开发模式直接放行，false=生产模式校验token
