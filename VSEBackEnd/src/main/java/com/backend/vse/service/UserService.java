@@ -8,6 +8,7 @@ import java.util.List;
 
 @Service
 public interface UserService {
+    boolean findUser(String email, String password);
     /**
      * 根据电子邮件查找用户
      * 该方法根据给定的电子邮件地址查找用户信息。

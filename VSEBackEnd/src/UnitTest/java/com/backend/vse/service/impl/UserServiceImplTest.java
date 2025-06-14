@@ -25,108 +25,98 @@ public class UserServiceImplTest {
     @InjectMocks
     private UserServiceImpl userService;
 
-    private User testUser;
+    private User empty,testUser,inExiseted,falsePassword,testUserStudentInactivated,testUserTeacherInactivated,testUserStudent,testUserTeacher;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        // 初始化测试数据
+        //实例化
+        empty = new User();
         testUser = new User();
-        testUser.setUserIndex(71L);
-        testUser.setEmail("2252073@tongji.edu.cn");
-        testUser.setId("2252073");
+        inExiseted = new User();
+        falsePassword = new User();
+        testUserStudentInactivated = new User();
+        testUserTeacherInactivated = new User();
+        testUserStudent = new User();
+        testUserTeacher = new User();
+
+        // 初始化测试数据
+        inExiseted.setEmail("inExiseted@gmail.com");
+        inExiseted.setPassword("inExisetedpassword");
+        falsePassword.setEmail("2252073@tongji.edu.cn");
+        falsePassword.setPassword("falsepassword");
+
+        testUserStudentInactivated.setEmail("2253106@tongji.edu.cn");
+        testUserStudentInactivated.setPassword("111111");
+        testUserTeacherInactivated.setEmail("111111@tongji.edu.cn");
+        testUserTeacherInactivated.setPassword("111111");
+        testUserStudent.setEmail("2252073@tongji.edu.cn");
+        testUserStudent.setPassword("111111");
+        testUserTeacher.setEmail("huangjie@tongji.edu.cn");
+        testUserTeacher.setPassword("111111");
     }
 
     @Test
-    public void testFindUserByEmail_UserFound() {
-        // 模拟 userMapper.selectOne 方法
-        when(userMapper.selectOne(any())).thenReturn(testUser);
+    public void testEmpty(){
+        // 调用相关方法
+        boolean result = userService.findUser(empty.getEmail(),empty.getPassword());
 
-        // 调用 service 方法
-        User result = userService.findUserByEmail("test@example.com");
-
-        // 验证结果
-        assertNotNull(result);
-        assertEquals("2252073@tongji.edu.cn", result.getEmail());
-
-        // 验证 mapper 方法是否被调用
-        verify(userMapper, times(1)).selectOne(any());
+        //验证结果
+        assertFalse(result);
     }
 
     @Test
-    public void testFindUserByEmail_UserNotFound() {
-        // 模拟 userMapper.selectOne 返回 null
-        when(userMapper.selectOne(any())).thenReturn(null);
+    public void testInExiseted(){
+        // 调用相关方法
+        boolean result = userService.findUser(inExiseted.getEmail(),inExiseted.getPassword());
 
-        // 调用 service 方法并验证异常
-        assertThrows(DataNotFoundException.class, () -> userService.findUserByEmail("nonexistent@example.com"));
+        //验证结果
+        assertFalse(result);
     }
 
     @Test
-    public void testActivateUserAccount_Success() {
-        // 模拟数据库更新成功，返回大于 0 的值
-        when(userMapper.updatePassword(any(), any())).thenReturn(1);
-        when(userMapper.updateStatus(any(), any())).thenReturn(1);
+    public void testFalsePassword(){
+        // 调用相关方法
+        boolean result = userService.findUser(falsePassword.getEmail(),falsePassword.getPassword());
 
-        // 执行服务方法
-        userService.activateUserAccount("test@example.com", "newPassword", (byte) 1);
-
-        // 验证是否调用了更新方法
-        verify(userMapper, times(1)).updatePassword(any(), any());
-        verify(userMapper, times(1)).updateStatus(any(), any());
+        //验证结果
+        assertFalse(result);
     }
 
     @Test
-    public void testActivateUserAccount_Failure() {
-        // 模拟数据库更新失败，返回 0
-        when(userMapper.updatePassword(any(), any())).thenReturn(0);
-        when(userMapper.updateStatus(any(), any())).thenReturn(0);
+    public void testStudentInactivated(){
+        // 调用相关方法
+        boolean result = userService.findUser(testUserStudentInactivated.getEmail(),testUserStudentInactivated.getPassword());
 
-        // 执行服务方法并验证异常
-        assertThrows(DatabaseOperationException.class, () -> userService.activateUserAccount("test@example.com", "newPassword", (byte) 1));
+        //验证结果
+        assertFalse(result);
     }
 
     @Test
-    public void testUpdatePassword_Success() {
-        // 模拟密码更新成功
-        when(userMapper.updatePassword(any(), any())).thenReturn(1);
+    public void testTeacherInactivated(){
+        // 调用相关方法
+        boolean result = userService.findUser(testUserTeacherInactivated.getEmail(),testUserTeacherInactivated.getPassword());
 
-        // 调用服务方法
-        userService.updatePassword("2252073", "222222");
-
-        // 验证 updatePassword 是否被调用
-        verify(userMapper, times(1)).updatePassword(any(), any());
+        //验证结果
+        assertFalse(result);
     }
 
     @Test
-    public void testUpdatePassword_Failure() {
-        // 模拟密码更新失败
-        when(userMapper.updatePassword(any(), any())).thenReturn(0);
+    public void testStudent(){
+        // 调用相关方法
+        boolean result = userService.findUser(testUserStudent.getEmail(),testUserStudent.getPassword());
 
-        // 调用服务方法并验证异常
-        assertThrows(DatabaseOperationException.class, () -> userService.updatePassword("test@example.com", "newPassword"));
+        //验证结果
+        assertFalse(result);
     }
 
     @Test
-    public void testFindUserById_UserFound() {
-        // 模拟返回特定用户
-        when(userMapper.selectOne(any())).thenReturn(testUser);
+    public void testTeacher(){
+        // 调用相关方法
+        boolean result = userService.findUser(testUserTeacher.getEmail(),testUserTeacher.getPassword());
 
-        // 调用方法
-        User result = userService.findUserById("2252073");
-
-        // 验证结果
-        assertNotNull(result);
-        assertEquals("2252073", result.getId());
-    }
-
-    @Test
-    public void testFindUserById_UserNotFound() {
-        // 模拟返回 null
-        when(userMapper.selectOne(any())).thenReturn(null);
-
-        // 调用方法并验证异常
-        assertThrows(DataNotFoundException.class, () -> userService.findUserById("nonexistentId"));
+        //验证结果
+        assertFalse(result);
     }
 }

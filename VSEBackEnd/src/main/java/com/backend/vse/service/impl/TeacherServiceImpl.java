@@ -69,7 +69,7 @@ public class TeacherServiceImpl implements TeacherService {
      * @param dto 导入数据DTO
      * @return 用户对象
      */
-    private User createUser(TeacherImportDto dto) {
+    public User createUser(TeacherImportDto dto) {
         User user = new User();
         user.setId(dto.getId());
         user.setName(dto.getName());

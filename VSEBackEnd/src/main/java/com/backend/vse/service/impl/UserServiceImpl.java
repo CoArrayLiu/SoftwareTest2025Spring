@@ -24,6 +24,15 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
+    @Override
+    @Transactional(readOnly = true)
+    public boolean findUser(String email, String password){
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getEmail, email));
+        if(user == null||user.getStatus()==0||!user.getPassword().equals(password)){ return false;}
+        if(user.getPassword().equals(password)){return true;}
+        return true;
+    }
+
     /**
      * 根据用户email和学校名查找对应用户的所有信息
      */

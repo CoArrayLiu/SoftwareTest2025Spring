@@ -53,7 +53,6 @@ public class UserController {
      * 发送账户激活邮件
      * 发送包含验证码的激活邮件到用户邮箱，用于账户激活
      * 路径：/auth/login
-     *
      * @param email 用户邮箱地址
      * @return 返回发送结果
      */
