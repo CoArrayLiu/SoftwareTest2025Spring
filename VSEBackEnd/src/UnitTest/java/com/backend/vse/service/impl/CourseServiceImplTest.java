@@ -90,4 +90,29 @@ public class CourseServiceImplTest {
         // 断言返回的列表为空
         assertTrue(courses.isEmpty(), "返回列表应该是空的");
     }
+
+    @Test
+    void testTeacherIdValidButEmptyList1() {
+        // 模拟 Mapper 返回空列表
+        when(courseMapper.getTeachingCourseList(anyLong())).thenReturn(Collections.emptyList());
+
+        // 调用业务方法，拿到返回的DTO列表
+        List<CourseBasicInfoDto> courses = courseService.getCoursesByTeacher(1L);
+
+        // 断言返回的列表为空
+        assertTrue(courses.isEmpty(), "返回列表应该是空的");
+    }
+
+    @Test
+    void testTeacherIdValidButEmptyList2() {
+        // 模拟 Mapper 返回空列表
+        when(courseMapper.getTeachingCourseList(anyLong())).thenReturn(Collections.emptyList());
+
+        // 调用业务方法，拿到返回的DTO列表
+        List<CourseBasicInfoDto> courses = courseService.getCoursesByTeacher(1L);
+
+        // 断言返回的列表为空
+        assertTrue(courses.isEmpty(), "返回列表应该是空的");
+    }
+
 }
